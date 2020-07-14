@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="IdentificadorDePersona.MainPage"
+             BackgroundColor="DarkGray"
+             >
+    <ScrollView>
+        <StackLayout Margin="20,35,20,20">
+          
+        
+        <Label Text="Identificador de Personas" 
+               FontSize="30"
+               TextColor="Black"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="Start" 
+        />
+        <Label>
+            
+            
+        </Label>
+        <Label Text="Información" 
+               FontSize="25"
+               TextColor="Black"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="Fill" 
+        />
+
+        <Entry x:Name="IdentificacionEnlaUI"
+               Placeholder = "Identificación"
+               PlaceholderColor="LightGray"
+               MaxLength="9"
+               Keyboard="Numeric"
+               ClearButtonVisibility="WhileEditing"
+               VerticalOptions="Fill" 
+
+               />
+        <Label>
+
+
+        </Label>
+        <Entry x:Name="UrlDeLaFoto"
+               Placeholder = "URL de la foto"
+               PlaceholderColor="LightGray"
+               Keyboard="Url"
+               ClearButtonVisibility="WhileEditing"
+               VerticalOptions="Fill" 
+
+        />
+        <Button Text="Verificar URL"
+                x:Name="BotonVerificarURL"
+                TextColor="Black"
+                BackgroundColor="Gray"
+                BorderColor="Black"
+                BorderWidth="2"
+                CornerRadius="30"
+                WidthRequest="30"
+                HeightRequest="35"
+                Clicked="VerificarURL"
+                />
+        
+        <Button Text="Galeria"
+                x:Name="BotonGaleria"
+                TextColor="Black"
+                BackgroundColor="Gray"
+                BorderColor="Black"
+                BorderWidth="2"
+                CornerRadius="30"
+                WidthRequest="30"
+                HeightRequest="35"
+                Clicked="EntrarAGaleria"
+                />
+        <Button Text="Verificar Identidad"
+                x:Name="BotonVerficarIdentidad"
+                TextColor="Black"
+                BackgroundColor="Gray"
+                BorderColor="Black"
+                BorderWidth="2"
+                CornerRadius="30"
+                WidthRequest="30"
+                HeightRequest="35"
+                Clicked="VerificarIdentidad"
+                />
+        <Label Text="Foto" 
+               FontSize="25"
+               TextColor="Black"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="Fill" 
+        />
+
+        <Image x:Name="ImagenEnLaUI"
+               Source="https://motomotostorage.blob.core.windows.net/contenedor/Imagen.jpg"
+               HeightRequest="300" />
+
+        <Label Text="B86249 - B81878 - B81848" 
+               FontSize="10"
+               TextColor="Gray"
+           HorizontalOptions="End"
+           VerticalOptions="EndAndExpand" 
+        />
+        
+    </StackLayout>
+    
+    </ScrollView>
+
+</ContentPage>
