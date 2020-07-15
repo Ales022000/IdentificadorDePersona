@@ -11,9 +11,9 @@ namespace IdentificadorDePersona
 {
     class ServicioFace
     {
-        const string SuscripcionKey = "d236e7fea4334e7aa15ca3b29d61062b";
+        const string SuscripcionKey = "0d72b077f997464b945b3476d14cf6b0";
     string urlObtenerFaceId = "https://centralus.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true";
-    const string urlDetect = "https://centralus.api.cognitive.microsoft.com/face/v1.0/detect";
+    const string urlDetect = "https://centralus.api.cognitive.microsoft.com/face/v1.0/detect";  
     const string urlVerify = "https://centralus.api.cognitive.microsoft.com/face/v1.0/verify";
 
     public string resultado;
@@ -46,76 +46,28 @@ namespace IdentificadorDePersona
 
         using (ByteArrayContent aregloByteImagen = new ByteArrayContent(imagenEnByte))
         {
-
             aregloByteImagen.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-
             respuestaHttp = await clienteAzure.PostAsync(url, aregloByteImagen);
-
             string contenidoRespuesta = await respuestaHttp.Content.ReadAsStringAsync();
-
             resultado = contenidoRespuesta;
-
-
         }
 
-    }
+    } // todo igual a azure face
 
     public string CompararCaras(string rutaDeImagen2)
     {
-        FaceVerifyRespuesta respuestaVerificacion = new FaceVerifyRespuesta();
         string resultadoComparacion = "";
-
 
         using (var envioAzure = new WebClient())
         {
-
             envioAzure.Headers.Add(HttpRequestHeader.ContentType, "application/octet-stream");
             envioAzure.Headers.Add("Ocp-Apim-Subscription-Key", SuscripcionKey);
 
-
-
-
-
-
-
-
-
-
-
-
-
             WebClient wc = new WebClient();
-            ///////******************************
-            ////***********
-            ///********
-            ///************
-            ///************
-            ///************
-            ///***************
-            byte[] datosImagen1 = wc.DownloadData("https://almacenimagenes.blob.core.windows.net/fotosdepersonas/ashnikko-image.jpg");
-            //********
-            /************
-             * *****************//*********************
-                                  * ***************
-                                  * ***
-                                  * **
-                                  * ****
-                                  * */
+
+            byte[] datosImagen1 = wc.DownloadData("https://blobstorageazure.blob.core.windows.net/contenedordearchivos/2cara2.jpg");
+
             respuestaImagen1 = envioAzure.UploadData(urlObtenerFaceId, datosImagen1);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             var respuesta = Encoding.UTF8.GetString(respuestaImagen1);
 
@@ -151,7 +103,11 @@ namespace IdentificadorDePersona
         }
 
         return resultadoComparacion;
-    }
+    }//Distinto
+
+
+
+
 
     public byte[] ObtenerImagenEnBytes(string direccionPathImagen)
     {
