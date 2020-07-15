@@ -139,12 +139,18 @@ namespace IdentificadorDePersona
                 FaceVerifyRespuesta respuesta = JsonConvert.DeserializeObject<FaceVerifyRespuesta>(mensajeRespuesta);
 
                 if (respuesta.IsIdentical == true)
+                {
 
                     await DisplayAlert("Respuesta", "La foto coincide con la persona " + persona.Nombre + ", identificacíon " + persona.Identificacion, "Entiendo");
+                    BotonVerficarIdentidad.IsEnabled = true;
+                }
 
                 else if (respuesta.IsIdentical == false)
+                {
 
                     await DisplayAlert("Respuesta", "La foto NO coincide con la persona " + persona.Nombre + ", identificacíon " + persona.Identificacion, "Entiendo");
+                    BotonVerficarIdentidad.IsEnabled = true;
+                }
 
             }
 
