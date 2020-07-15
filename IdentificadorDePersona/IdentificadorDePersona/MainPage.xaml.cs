@@ -96,7 +96,7 @@ namespace IdentificadorDePersona
                     UrlDeLaFoto.Text = persona.Foto;
 
                     if (nombre != null)
-                    {
+                    {   
                         await DisplayAlert("Prueba", "Nombre: " + nombre, "Bien");
                     }
                 }
