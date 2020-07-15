@@ -29,7 +29,7 @@
                Placeholder = "Identificación"
                PlaceholderColor="LightGray"
                MaxLength="9"
-               Keyboard="Numeric"
+               Keyboard="Text"
                ClearButtonVisibility="WhileEditing"
                VerticalOptions="Fill" 
 
@@ -38,26 +38,7 @@
 
 
         </Label>
-        <Entry x:Name="UrlDeLaFoto"
-               Placeholder = "URL de la foto"
-               PlaceholderColor="LightGray"
-               Keyboard="Url"
-               ClearButtonVisibility="WhileEditing"
-               VerticalOptions="Fill" 
-
-        />
-        <Button Text="Verificar URL"
-                x:Name="BotonVerificarURL"
-                TextColor="Black"
-                BackgroundColor="Gray"
-                BorderColor="Black"
-                BorderWidth="2"
-                CornerRadius="30"
-                WidthRequest="30"
-                HeightRequest="35"
-                Clicked="VerificarURL"
-                />
-        
+              
         <Button Text="Galeria"
                 x:Name="BotonGaleria"
                 TextColor="Black"
@@ -69,6 +50,18 @@
                 HeightRequest="35"
                 Clicked="EntrarAGaleria"
                 />
+
+        <Label Text="Foto" 
+               FontSize="25"
+               TextColor="Black"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="Fill" 
+        />
+
+        <Image x:Name="ImagenEnLaUI"
+               Source="https://motomotostorage.blob.core.windows.net/contenedor/Imagen.jpg"
+               HeightRequest="250" />
+            
         <Button Text="Verificar Identidad"
                 x:Name="BotonVerficarIdentidad"
                 TextColor="Black"
@@ -80,16 +73,6 @@
                 HeightRequest="35"
                 Clicked="VerificarIdentidad"
                 />
-        <Label Text="Foto" 
-               FontSize="25"
-               TextColor="Black"
-               HorizontalOptions="CenterAndExpand"
-               VerticalOptions="Fill" 
-        />
-
-        <Image x:Name="ImagenEnLaUI"
-               Source="https://motomotostorage.blob.core.windows.net/contenedor/Imagen.jpg"
-               HeightRequest="300" />
 
         <Label Text="B86249 - B81878 - B81848" 
                FontSize="10"

@@ -12,7 +12,7 @@ namespace IdentificadorDePersona
         public string id { get; set; }
 
         [JsonProperty(PropertyName = "Identificación")]
-        public int Identificacion { get; set; }
+        public string Identificacion { get; set; }
 
         [JsonProperty(PropertyName = "Nombre")]
         public string Nombre { get; set; }

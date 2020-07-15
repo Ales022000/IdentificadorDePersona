@@ -11,7 +11,7 @@ namespace IdentificadorDePersona
 {
     class ServicioFace
     {
-        const string SuscripcionKey = "0d72b077f997464b945b3476d14cf6b0";
+       const string SuscripcionKey = "0d72b077f997464b945b3476d14cf6b0";
     string urlObtenerFaceId = "https://centralus.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true";
     const string urlDetect = "https://centralus.api.cognitive.microsoft.com/face/v1.0/detect";  
     const string urlVerify = "https://centralus.api.cognitive.microsoft.com/face/v1.0/verify";

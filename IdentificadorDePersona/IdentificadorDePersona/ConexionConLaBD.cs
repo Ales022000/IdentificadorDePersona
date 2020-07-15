@@ -57,7 +57,7 @@ namespace IdentificadorDePersona
 
 
 
-        public async static Task<Persona> GetPersona(int identificacion)
+        public async static Task<Persona> GetPersona(String identificacion)
         {
             var todos = new List<Persona>();
 
