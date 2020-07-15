@@ -33,6 +33,7 @@ namespace IdentificadorDePersona
             {
                 String Indentificación = "";
 
+                await DisplayAlert("Información", "Esto puede tomar un momento", "Entiendo");
 
                 Indentificación = IdentificacionEnlaUI.Text;
 
@@ -75,8 +76,6 @@ namespace IdentificadorDePersona
             });
 
             ImagenEnLaUI.Source = file.Path;
-
-            await DisplayAlert("Información", "Espere un momento para cargar la foto", "Entiendo");
 
             byte[] datosDeLaFoto = System.IO.File.ReadAllBytes(file.Path);
 
