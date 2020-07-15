@@ -17,9 +17,8 @@ namespace IdentificadorDePersona
 
 
         const string SuscripcionKey = "0d72b077f997464b945b3476d14cf6b0";
-        string urlObtenerFaceId = "https://centralus.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true";
-        const string urlDetect = "https://centralus.api.cognitive.microsoft.com/face/v1.0/detect";
-        const string urlVerify = "https://centralus.api.cognitive.microsoft.com/face/v1.0/verify";
+        string urlObtenerFaceId = "https://southcentralus.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true";
+        const string urlVerify = "https://southcentralus.api.cognitive.microsoft.com/face/v1.0/verify";
 
 
         public MainPage()
@@ -144,6 +143,7 @@ namespace IdentificadorDePersona
                     await DisplayAlert("Respuesta", "La foto coincide con la persona " + persona.Nombre + ", identificacíon " + persona.Identificacion, "Entiendo");
 
                 else if (respuesta.IsIdentical == false)
+
                     await DisplayAlert("Respuesta", "La foto NO coincide con la persona " + persona.Nombre + ", identificacíon " + persona.Identificacion, "Entiendo");
 
             }
