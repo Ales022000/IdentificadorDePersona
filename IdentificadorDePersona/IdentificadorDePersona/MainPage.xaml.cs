@@ -28,57 +28,39 @@ namespace IdentificadorDePersona
 
         }
 
-        private async void EntrarAGaleria(object sender, EventArgs e)
-        {
-
-            if (CrossMedia.Current.IsTakePhotoSupported) {
-
-                var imagen = await CrossMedia.Current.PickPhotoAsync();
-
-                if (imagen != null) {
-
-                    ImagenEnLaUI.Source = ImageSource.FromStream(() =>
-                    {
-                        var stream = imagen.GetStream();
-                        imagen.Dispose();
-                        return stream;
-
-                    });
-
-                }
-
-            }
-
-        }
-
         private async void VerificarIdentidad(object sender, EventArgs e)
         {
-
             try
             {
-                String Indentificación = IdentificacionEnlaUI.Text;
-                
-                if (IdentificacionEnlaUI.Text.Length > 8) {
+                String Indentificación = "";
 
-                    BotonVerficarIdentidad.IsEnabled = false;
-                    Upload(Indentificación);
 
-                }
-                else {
+                Indentificación = IdentificacionEnlaUI.Text;
 
-                    await DisplayAlert("Aviso", "La identidad debe tener 9 dígitos!", "Entiendo");
-                }
+                if (IdentificacionEnlaUI.Text.Length > 8)
+                    {
+
+                        BotonVerficarIdentidad.IsEnabled = false;
+                        Upload(Indentificación);
+
+                    }
+                    else
+                    {
+
+                        await DisplayAlert("Aviso", "La identidad debe tener 9 dígitos!", "Entiendo");
+                    }
+               
 
             }
-            catch (NotImplementedException notImp)
+            catch (Exception)
             {
                
-                await DisplayAlert("Error", notImp.Message, "Ok");
+                await DisplayAlert("Error", "Hubo un error!\nVerifique la identificación!", "Entiendo");
                
             }
         }
 
-        async void Upload(string identificacion)
+        private async void Upload(string identificacion)
         {
 
             await CrossMedia.Current.Initialize();
@@ -92,6 +74,10 @@ namespace IdentificadorDePersona
                 PhotoSize = Plugin.Media.Abstractions.PhotoSize.Full,
                 CompressionQuality = 40
             });
+
+            ImagenEnLaUI.Source = file.Path;
+
+            await DisplayAlert("Información", "Espere un momento para cargar la foto", "Entiendo");
 
             byte[] datosDeLaFoto = System.IO.File.ReadAllBytes(file.Path);
 
@@ -109,13 +95,15 @@ namespace IdentificadorDePersona
 
                     WebClient wc = new WebClient();
                     byte[] datosDeFotosEnBD = wc.DownloadData(urlDeLaFotoEnBD);
-                    Comparar(datosDeFotosEnBD, datosDeLaFoto);
+                    Comparar(datosDeFotosEnBD, datosDeLaFoto , persona);
             }
             
         }
 
-        private void Comparar(byte[] fotoDeLaBase, byte[] fotoIngresada)
+        private async void Comparar(byte[] fotoDeLaBase, byte[] fotoIngresada, Persona persona)
         {
+            FaceDetectRespuesta deteccionDeRostro1;
+            FaceDetectRespuesta deteccionDeRostro2;
 
             using (var envioAzure = new WebClient())
             {
@@ -127,8 +115,10 @@ namespace IdentificadorDePersona
                 WebClient wc = new WebClient();
 
                 byte[] resultadoFoto1 = envioAzure.UploadData(urlObtenerFaceId, fotoDeLaBase);
+
+
                 var respuesta = Encoding.UTF8.GetString(resultadoFoto1);
-                FaceDetectRespuesta deteccionDeRostro1 = JsonConvert.DeserializeObject<FaceDetectRespuesta[]>(respuesta)[0];
+                deteccionDeRostro1 = JsonConvert.DeserializeObject<FaceDetectRespuesta[]>(respuesta)[0];
             }
 
             using (var envioAzure = new WebClient())
@@ -137,11 +127,29 @@ namespace IdentificadorDePersona
                 envioAzure.Headers.Add("Ocp-Apim-Subscription-Key", SuscripcionKey);
                 byte[] resultadoFoto2 = envioAzure.UploadData(urlObtenerFaceId, fotoIngresada);
                 var respuesta = Encoding.UTF8.GetString(resultadoFoto2);
-                FaceDetectRespuesta deteccionDeRostro2 = JsonConvert.DeserializeObject<FaceDetectRespuesta[]>(respuesta)[0];
+                deteccionDeRostro2 = JsonConvert.DeserializeObject<FaceDetectRespuesta[]>(respuesta)[0];
+            }
+
+            using (var envioAzure = new WebClient())
+            {
+                envioAzure.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+                envioAzure.Headers.Add("Ocp-Apim-Subscription-Key", SuscripcionKey);
+
+                string json = "{\"faceId1\":\"" + deteccionDeRostro1.FaceId + "\", \"faceId2\":\"" + deteccionDeRostro2.FaceId + "\" }";
+                string mensajeRespuesta = envioAzure.UploadString(urlVerify, json);
+                FaceVerifyRespuesta respuesta = JsonConvert.DeserializeObject<FaceVerifyRespuesta>(mensajeRespuesta);
+
+                if (respuesta.IsIdentical == true)
+
+                    await DisplayAlert("Respuesta", "La foto coincide con la persona " + persona.Nombre + ", identificacíon " + persona.Identificacion, "Entiendo");
+
+                else if (respuesta.IsIdentical == false)
+                    await DisplayAlert("Respuesta", "La foto NO coincide con la persona " + persona.Nombre + ", identificacíon " + persona.Identificacion, "Entiendo");
+
             }
 
         }
 
 
-        }
+    }
 }

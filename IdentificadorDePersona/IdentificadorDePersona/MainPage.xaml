@@ -38,20 +38,7 @@
 
 
         </Label>
-              
-        <Button Text="Galeria"
-                x:Name="BotonGaleria"
-                TextColor="Black"
-                BackgroundColor="Gray"
-                BorderColor="Black"
-                BorderWidth="2"
-                CornerRadius="30"
-                WidthRequest="30"
-                HeightRequest="35"
-                Clicked="EntrarAGaleria"
-                />
-
-        <Label Text="Foto" 
+         <Label Text="Foto" 
                FontSize="25"
                TextColor="Black"
                HorizontalOptions="CenterAndExpand"
